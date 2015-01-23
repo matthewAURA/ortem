@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Grid : MonoBehaviour {
+public class Grid : MonoBehaviour
+{
 
 	public  int width;
 	public  int height;

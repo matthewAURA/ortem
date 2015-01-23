@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Car : MonoBehaviour {
+public class Car : MonoBehaviour
+{
 
 	public Point home;
 	public Point work;
-	public Grid grid;
+	public GridGraph graph;
 	private IList<Direction> turns;
 
 	// Use this for initialization
@@ -21,6 +22,7 @@ public class Car : MonoBehaviour {
 
 	public IList<Direction> getPath(Point source, Point target)
 	{
+		// grid.
 		return null;
 		//source.
 		//for (int x = source.x
