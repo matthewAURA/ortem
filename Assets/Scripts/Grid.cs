@@ -19,7 +19,7 @@ public class Grid : MonoBehaviour {
 		for (int i=0; i<grid.GetLength(0); i++) {
 			for (int j=0;j<grid.GetLength(1);j++){
 				Transform square = (Transform)Instantiate(gridSquare);
-				square.position = new Vector3(i*gridSize,j*gridSize,0);
+				square.position = new Vector3(i*gridSize,-j*gridSize,0);
 			}
 		}
 
@@ -35,9 +35,7 @@ public class Grid : MonoBehaviour {
 		int xSquare = xPixel / gridSize;
 		int ySquare = yPixel / gridSize;
 
-		if (!(grid[xSquare, ySquare] == null)){
-			grid[xSquare,ySquare] = p;
-		}
+		return new Vector2 (xSquare, ySquare);
 	}
 
 
