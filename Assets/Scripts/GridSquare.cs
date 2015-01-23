@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GridClickListener : MonoBehaviour {
+public class GridSquare : MonoBehaviour {
 
 	public Grid grid;
-
+	public Point gridIndex;
 	// Use this for initialization
 	void Start () {
 	
@@ -16,6 +16,6 @@ public class GridClickListener : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		Debug.Log (Input.mousePosition);
+		Debug.Log (gridIndex.x);
 	}
 }

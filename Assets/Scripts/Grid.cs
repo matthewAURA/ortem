@@ -7,7 +7,7 @@ public class Grid : MonoBehaviour {
 	public  int height;
 	public  int gridSize;
 
-	public Transform gridSquare;
+	public GridSquare gridSquare;
 
 	private Placeable[,] grid;
 
@@ -18,8 +18,9 @@ public class Grid : MonoBehaviour {
 		//Render all the grid Square
 		for (int i=0; i<grid.GetLength(0); i++) {
 			for (int j=0;j<grid.GetLength(1);j++){
-				Transform square = (Transform)Instantiate(gridSquare);
-				square.position = new Vector3(i*gridSize,-j*gridSize,0);
+				GridSquare square = (GridSquare)Instantiate(gridSquare);
+				((Transform)square.GetComponent("Transform")).position = new Vector3(i*gridSize,-j*gridSize,0);
+				square.gridIndex = new Point(i,j);
 			}
 		}
 
@@ -30,12 +31,8 @@ public class Grid : MonoBehaviour {
 
 	}
 
-	private Vector2 convertPositonToGrid(int xPixel,int yPixel){
-		//Horizontal
-		int xSquare = xPixel / gridSize;
-		int ySquare = yPixel / gridSize;
-
-		return new Vector2 (xSquare, ySquare);
+	public Placeable getAt(Point p){
+		return this.grid[p.x,p.y];
 	}
 
 
