@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour {
 
 	}
 
-	private void placeObject(Placeable p,int xPixel,int yPixel){
+	private Vector2 convertPositonToGrid(int xPixel,int yPixel){
 		//Horizontal
 		int xSquare = xPixel / gridSize;
 		int ySquare = yPixel / gridSize;

@@ -16,6 +16,6 @@ public class GridClickListener : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		Debug.Log ("Poke");
+		Debug.Log (Input.mousePosition);
 	}
 }
