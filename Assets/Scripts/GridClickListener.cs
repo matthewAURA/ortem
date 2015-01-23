@@ -1,16 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class Placeable : MonoBehaviour {
+public class GridClickListener : MonoBehaviour {
 
-	public GameObject gameObject;
-
-	public double xPos;
-	public double yPos;
+	public Grid grid;
 
 	// Use this for initialization
 	void Start () {
-
+	
 	}
 	
 	// Update is called once per frame
@@ -18,8 +15,7 @@ public class Placeable : MonoBehaviour {
 		
 	}
 
-
-	
-
-	
+	void OnMouseDown(){
+		Debug.Log ("Poke");
+	}
 }
