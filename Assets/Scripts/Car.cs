@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class Car : MonoBehaviour {
 
-	public Vector2 source;
-	public Vector2 target;
-	private IList<Direction> turns = new List<Direction>();
+	public Point home;
+	public Point work;
+	public Grid grid;
+	private IList<Direction> turns;
 
 	// Use this for initialization
 	void Start () {
@@ -18,5 +19,11 @@ public class Car : MonoBehaviour {
 		
 	}
 
+	public IList<Direction> getPath(Point source, Point target)
+	{
+		return null;
+		//source.
+		//for (int x = source.x
+	}
 
 }
