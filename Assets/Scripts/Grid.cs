@@ -12,10 +12,13 @@ public class Grid : MonoBehaviour
 
 	private Placeable[,] grid;
 
+	void Awake ()
+	{
+		grid = new Placeable[width,height];
+	}
 
 	// Use this for initialization
 	void Start () {
-		grid = new Placeable[width,height];
 		//Render all the grid Square
 		for (int i=0; i<grid.GetLength(0); i++) {
 			for (int j=0;j<grid.GetLength(1);j++){
@@ -24,7 +27,6 @@ public class Grid : MonoBehaviour
 				square.gridIndex = new Point(i,j);
 			}
 		}
-
 	
 	}
 	

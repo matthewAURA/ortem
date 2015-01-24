@@ -11,6 +11,12 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//StartCoroutine (Timing());
+		for (int i = 1; i < 9; i++)
+		{
+			createRoad(new Point(i,1));
+		}
+		createHouse (new Point (0, 1));
+		createWork (new Point (9, 1));
 	}
 	
 	// Update is called once per frame
@@ -44,9 +50,9 @@ public class GameController : MonoBehaviour {
 		return newHouse;
 	}
 	public Placeable createWork(Point p){
-		var newHouse = (Work)Instantiate (home);
-		grid.placePlaceable (newHouse, p);
-		return newHouse;
+		var newWork = (Work)Instantiate (work);
+		grid.placePlaceable (newWork, p);
+		return newWork;
 	}
 
 }

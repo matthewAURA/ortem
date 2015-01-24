@@ -28,6 +28,11 @@ public struct Point
 		return (x * 31 * 31) ^ y;
 	}
 
+	public override string ToString ()
+	{
+		return string.Format ("[Point {0} {1}]", x, y);
+	}
+
 	/** 
 	 * Get neighbours (not diagonal) inside the grid
 	 */
