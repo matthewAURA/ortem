@@ -7,12 +7,20 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
+using UnityEngine;
+using System.Collections;
+
 
 public class Road : Placeable
 {
-	public Road ()
-	{
+	// Use this for initialization
+	public override void Start (){
+		Debug.Log ("Road Start");
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
 	}
 }
 

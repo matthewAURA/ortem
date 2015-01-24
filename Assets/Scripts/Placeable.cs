@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Placeable : MonoBehaviour {
 
-	public GameObject gameObject;
+	public GameObject placedGameObject;
 
 	public double xPos;
 	public double yPos;
 
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
 
 	}
 	
