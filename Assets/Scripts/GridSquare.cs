@@ -16,10 +16,10 @@ public class GridSquare : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-		Debug.Log ("Mouse");
-		if (Input.GetMouseButtonDown(0)){
-			gameController.updateGrid(BuildAction.BUILD_ROAD,this.gridIndex);
-		}else if (Input.GetMouseButtonDown(1)){
+		Debug.Log (UIController.CurrentBuildAction);
+		if (Input.GetMouseButton(0)){
+			gameController.updateGrid(UIController.CurrentBuildAction,this.gridIndex);
+		}else if (Input.GetMouseButton(1)){
 			gameController.updateGrid(BuildAction.DELETE,this.gridIndex);
 		}
 

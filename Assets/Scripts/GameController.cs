@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public Work work;
 	public Car car;
 
+
 	private List<Car> cars = new List<Car>();
 
 	// Use this for initialization
@@ -62,6 +63,12 @@ public class GameController : MonoBehaviour {
 		switch (b) {
 		case BuildAction.BUILD_ROAD:
 			createPlaceable (road, p);
+			break;
+		case BuildAction.BUILD_HOME:
+			createPlaceable(home,p);
+			break;
+		case BuildAction.BUILD_WORK:
+			createPlaceable(work,p);
 			break;
 		case BuildAction.DELETE:
 			removePlaceable(p);
