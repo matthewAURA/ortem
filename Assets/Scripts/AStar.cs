@@ -82,9 +82,9 @@ public class AStar
 		List<Point> neighboursOfType = new List<Point>();
 		foreach (Point n in p.getNeighbours())
 		{
-			if (Grid.getGrid().getAt(p) is T)
+			if (Grid.getGrid().getAt(n) is T)
 			{
-				neighboursOfType.Add(p);
+				neighboursOfType.Add(n);
 			}
 		}
 		return neighboursOfType;
