@@ -10,6 +10,6 @@
 using System;
 public enum BuildAction
 {
-	BUILD_ROAD,DELETE
+	BUILD_ROAD,BUILD_WORK,BUILD_HOME,DELETE
 }
 

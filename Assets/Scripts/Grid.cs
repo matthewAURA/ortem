@@ -75,14 +75,27 @@ public class Grid : MonoBehaviour
 	public bool removePlaceable(Point p){
 		numChanges++;
 		var oldPlaceable = this.grid [p.x, p.y];
-		this.grid [p.x, p.y] = null;
-		placeables.Remove (oldPlaceable);
-		if (oldPlaceable is Home) {
-			homes.Remove((Home)oldPlaceable);
-		} else if (oldPlaceable is Work) {
-			works.Remove((Work)oldPlaceable);
+		if (oldPlaceable != null) {
+			this.grid [p.x, p.y] = null;
+			placeables.Remove (oldPlaceable);
+			Destroy (oldPlaceable.gameObject);
 		}
-		Destroy(oldPlaceable.gameObject);
+
+		return false;
+	}
+	public bool removePlaceable(Point p){
+		numChanges++;
+		var oldPlaceable = this.grid [p.x, p.y];
+		if (oldPlaceable != null) {
+			this.grid [p.x, p.y] = null;
+			placeables.Remove (oldPlaceable);
+			if (oldPlaceable is Home) {
+				homes.Remove((Home)oldPlaceable);
+			} else if (oldPlaceable is Work) {
+				works.Remove((Work)oldPlaceable);
+			}
+			Destroy (oldPlaceable.gameObject);
+		}
 		return false;
 	}
 
