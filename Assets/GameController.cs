@@ -19,7 +19,12 @@ public class GameController : MonoBehaviour {
 		for (int i = 1; i < 9; i++)
 		{
 			createPlaceable(road, new Point(i,1));
+			createPlaceable(road, new Point(i,3));
 		}
+		createPlaceable(road, new Point(0,2));
+		createPlaceable(road, new Point(0,3));
+		createPlaceable(road, new Point(9,2));
+		createPlaceable(road, new Point(9,3));
 		home = (Home)createPlaceable(homeTemplate, new Point (0, 1));
 		createPlaceable(work, new Point (9, 1));
 	}
