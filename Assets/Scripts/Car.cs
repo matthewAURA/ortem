@@ -26,6 +26,10 @@ public class Car : MonoBehaviour
 
 	}
 
+	public void moveToPoint(Point p){
+		this.transform.position = Grid.getGrid().moveToWorldCoordinates(p);
+	}
+
 	public void drive(){
 		var path = navigator.getPath (position, work);
 		foreach (var p in path) {
@@ -33,6 +37,7 @@ public class Car : MonoBehaviour
 		}
 		if (path.Count > 1) {
 			this.position = path [1];
+			moveToPoint(this.position);
 		}
 	}
 

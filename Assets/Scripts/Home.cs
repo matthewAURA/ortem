@@ -23,8 +23,7 @@ public class Home : Placeable
 		newCar.position = this.position;
 		newCar.home = this.position;
 		newCar.work = p;
-		newCar.transform.position = Grid.getGrid().moveToWorldCoordinates (position);
-
+		newCar.moveToPoint (position);
 		return newCar;
 	}
 }

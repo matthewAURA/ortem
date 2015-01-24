@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator Timing() {
 		while (true) {
 			yield return new WaitForSeconds (2);
-			if (Random.Range(0,1.0f) > 0){
+			if (Random.Range(0,1.0f) > 0 && cars.Count < 5){
 				var newCar = home.createCar(new Point(9,1)); 
 
 				cars.Add (newCar);
