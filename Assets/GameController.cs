@@ -32,7 +32,6 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 	}
 
 	IEnumerator Timing() {
@@ -57,10 +56,29 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	
+	public void updateGrid(BuildAction b,Point p){
+		Debug.Log ("update");
+		switch (b) {
+		case BuildAction.BUILD_ROAD:
+			createPlaceable (road, p);
+			break;
+		case BuildAction.DELETE:
+			removePlaceable(p);
+			break;
+		}
+
+	}
+
 	public Placeable createPlaceable(Placeable thing, Point p){
 		var newT = (Placeable)Instantiate (thing);
 		grid.placePlaceable(newT,p);
 		return newT;
+	}
+
+	public void removePlaceable(Point p){
+		Debug.Log ("remove");
+		grid.removePlaceable (p);
 	}
 
 }

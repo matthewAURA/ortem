@@ -49,8 +49,6 @@ public class Grid : MonoBehaviour
 		return this.grid[p.x,p.y];
 	}
 
-	public void updateGrid(Point p){
-	}
 
 	public bool placePlaceable(Placeable placeable,Point p){
 		this.grid[p.x,p.y] = placeable;
@@ -58,6 +56,14 @@ public class Grid : MonoBehaviour
 		placeable.position = p;
 		placeable.moveToPostion(moveToWorldCoordinates(p));
 		return true;
+	}
+
+	public bool removePlaceable(Point p){
+		var oldPlaceable = this.grid [p.x, p.y];
+		this.grid [p.x, p.y] = null;
+		placeables.Remove (oldPlaceable);
+		Destroy(oldPlaceable.gameObject);
+		return false;
 	}
 
 	public Vector3 moveToWorldCoordinates(Point p){
