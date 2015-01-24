@@ -40,11 +40,18 @@ public class GameController : MonoBehaviour {
 			yield return new WaitForSeconds (0.1f);
 			if (Random.Range(0,1.0f) > 0.7){
 				var newCar = home.createCar(new Point(9,1)); 
-
 				cars.Add (newCar);
 			}
-			foreach(var carIter in cars){
-				carIter.drive();
+			List<Car> toRemove = new List<Car>();
+			foreach(Car carIter in cars){
+				Car.DriveState result = carIter.drive();
+				if (result == Car.DriveState.AT_DESTINATION) {
+					toRemove.Add(carIter);
+				}
+			}
+			foreach (Car carIter in toRemove) {
+				cars.Remove(carIter);
+				Destroy (carIter.gameObject);
 			}
 
 		}

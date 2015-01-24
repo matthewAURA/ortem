@@ -30,12 +30,25 @@ public class Car : MonoBehaviour
 		this.transform.position = Grid.getGrid().moveToWorldCoordinates(p);
 	}
 
-	public void drive(){
+	public DriveState drive(){
+		if (position.Equals (work)) {
+			return DriveState.AT_DESTINATION;
+		}
 		var path = navigator.getPath (position, work);
+		if (path == null) {
+			return DriveState.CANNOT_REACH_DESTINATION;
+		}
 		if (path.Count > 1) {
 			this.position = path [1];
 			moveToPoint(this.position);
+			return DriveState.DRIVING;
 		}
+		Debug.Log ("weird case? path.count is " + path.Count);
+		return DriveState.WHO_KNOWS;
+	}
+
+	public enum DriveState {
+		DRIVING, AT_DESTINATION, CANNOT_REACH_DESTINATION, WHO_KNOWS
 	}
 
 
