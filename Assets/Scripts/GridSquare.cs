@@ -18,4 +18,8 @@ public class GridSquare : MonoBehaviour {
 	void OnMouseDown(){
 		Debug.Log (gridIndex.x);
 	}
+
+	void OnMouseUp(){
+		grid.updateGrid (this.gridIndex);
+	}
 }

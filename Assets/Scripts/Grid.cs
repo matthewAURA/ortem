@@ -35,5 +35,7 @@ public class Grid : MonoBehaviour {
 		return this.grid[p.x,p.y];
 	}
 
+	public void updateGrid(Point p){
 
+	}
 }
