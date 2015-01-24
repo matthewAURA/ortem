@@ -51,11 +51,15 @@ public class Grid : MonoBehaviour
 
 
 	public bool placePlaceable(Placeable placeable,Point p){
-		this.grid[p.x,p.y] = placeable;
-		placeables [placeable] = p;
-		placeable.position = p;
-		placeable.moveToPostion(moveToWorldCoordinates(p));
-		return true;
+		if (this.grid [p.x, p.y] == null) {
+			this.grid [p.x, p.y] = placeable;
+			placeables [placeable] = p;
+			placeable.position = p;
+			placeable.moveToPostion (moveToWorldCoordinates (p));
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public bool removePlaceable(Point p){
