@@ -12,7 +12,6 @@ public class AStar
 
 	public List<Point> getPath(Point source, Point target)
 	{
-		Debug.Log ("getPath called: " + source + " to " + target);
 		PriorityQueue<int,Point> pq = new PriorityQueue<int,Point> ();
 		Dictionary<Point, int> bestDists = new Dictionary<Point, int> ();
 		bestDists [target] = int.MaxValue;
@@ -21,7 +20,6 @@ public class AStar
 		while (pq.Count > 0)
 		{
 			Point p = pq.DequeueValue();
-			Debug.Log("A* exploring " + p);
 			int d = bestDists[p];
 			if (d-1 > bestDists[target]) // maybe -1 or something?
 			{
