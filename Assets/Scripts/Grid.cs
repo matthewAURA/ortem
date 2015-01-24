@@ -64,9 +64,11 @@ public class Grid : MonoBehaviour
 
 	public bool removePlaceable(Point p){
 		var oldPlaceable = this.grid [p.x, p.y];
-		this.grid [p.x, p.y] = null;
-		placeables.Remove (oldPlaceable);
-		Destroy(oldPlaceable.gameObject);
+		if (oldPlaceable != null) {
+			this.grid [p.x, p.y] = null;
+			placeables.Remove (oldPlaceable);
+			Destroy (oldPlaceable.gameObject);
+		}
 		return false;
 	}
 
