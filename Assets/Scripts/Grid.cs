@@ -19,10 +19,7 @@ public class Grid : MonoBehaviour
 
 	private Placeable[,] grid;
 
-	public List<Road> roads = new List<Road>();
-	public List<Home> homes = new List<Home>();
-	public List<Work> works = new List<Work>();
-	public List<Car> cars = new List<Car>();
+	public Dictionary<Placeable,Point> placeables = new Dictionary<Placeable,Point>();
 
 	void Awake ()
 	{
@@ -57,28 +54,15 @@ public class Grid : MonoBehaviour
 
 	public bool placePlaceable(Placeable placeable,Point p){
 		this.grid[p.x,p.y] = placeable;
-		if (placeable is Car) {
-			cars.Add((Car)placeable);
-		} else if (placeable is Home) {
-			homes.Add((Home)placeable);
-		} else if (placeable is Work) {
-			works.Add ((Work)placeable);
-		} else if (placeable is Road) {
-			roads.Add ((Road)placeable);
-		}
-		placeable.moveToPostion(new Vector3(p.x*gridSize,-p.y*gridSize,0));
+		placeables [placeable] = p;
+		placeable.position = p;
+		placeable.moveToPostion(moveToWorldCoordinates(p));
 		return true;
 	}
 
-	public void renderCarOnGrid(Car car,Point p){
-		if (this.getAt (p) != null) {
-			var placeable = this.getAt(p);
-			if (placeable is Road){
-				((Road)placeable).moveCar(car);
-			}
-		}
+	public Vector3 moveToWorldCoordinates(Point p){
+		return new Vector3 (p.x * gridSize, -p.y * gridSize, 0);
 	}
-
 
 
 

@@ -5,7 +5,7 @@ public class Placeable : MonoBehaviour {
 
 
 
-	public Point point;
+	public Point position;
 
 	// Use this for initialization
 	public virtual void Start () {
