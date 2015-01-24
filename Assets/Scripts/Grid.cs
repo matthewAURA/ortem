@@ -56,18 +56,18 @@ public class Grid : MonoBehaviour
 	}
 
 	public bool placePlaceable(Placeable placeable,Point p){
-			this.grid[p.x,p.y] = placeable;
-			if (placeable is Car) {
-				cars.Add((Car)placeable);
-			} else if (placeable is Home) {
-				homes.Add((Home)placeable);
-			} else if (placeable is Work) {
-				works.Add ((Work)placeable);
-			} else if (placeable is Road) {
-				roads.Add ((Road)placeable);
-			}
-			placeable.moveToPostion(new Vector3(p.x*gridSize,-p.y*gridSize,0));
-			return true;
+		this.grid[p.x,p.y] = placeable;
+		if (placeable is Car) {
+			cars.Add((Car)placeable);
+		} else if (placeable is Home) {
+			homes.Add((Home)placeable);
+		} else if (placeable is Work) {
+			works.Add ((Work)placeable);
+		} else if (placeable is Road) {
+			roads.Add ((Road)placeable);
+		}
+		placeable.moveToPostion(new Vector3(p.x*gridSize,-p.y*gridSize,0));
+		return true;
 	}
 
 	public void renderCarOnGrid(Car car,Point p){

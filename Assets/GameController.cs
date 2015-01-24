@@ -36,8 +36,10 @@ public class GameController : MonoBehaviour {
 					var newCar = (Car)this.create(car, new Point(0,1));
 					newCar.home = new Point(0,1);
 					newCar.work = new Point(9,1);
-
 				}
+			}
+			foreach(var car in grid.cars){
+				car.drive();
 			}
 		}
 	}
