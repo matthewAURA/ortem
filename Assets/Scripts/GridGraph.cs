@@ -10,33 +10,20 @@ using System.Collections.Generic;
 public class GridGraph : MonoBehaviour
 {
 	public Grid grid;
-	private bool isGridDirty = true;
-	// private Dictionary<Point, List<Edge>> graph = new Dictionary();
+	// private bool isGridDirty = true;
 
-	public void gridUpdated()
-	{
-		isGridDirty = true;
-	}
+//	public void gridUpdated()
+//	{
+//		isGridDirty = true;
+//	}
 
 	// Use this for initialization
 	void Start () {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (isGridDirty)
-		{
-
-			// update grid graph
-			for (int y = 0; y < grid.height; y++)
-			{
-				for (int x = 0; x < grid.width; x++)
-				{
-
-				}
-			}
-			//if (grid.getAt(Point prop) instanceof Road)
-		}
+	void Update ()
+	{
 	}
 
 //	private List<Edge> getEdges(Point p)
@@ -54,12 +41,84 @@ public class GridGraph : MonoBehaviour
 //		int distance;
 //	}
 
-	public IList<Direction> getPath(Point source, Point target)
+	public List<Point> getPath(Point source, Point target)
 	{
-		// grid.
-		return null;
-		//source.
-		//for (int x = source.x
+		PriorityQueue<int,Point> pq = new PriorityQueue<int,Point> ();
+		Dictionary<Point, int> bestDists = new Dictionary<Point, int> ();
+		bestDists [source] = 0;
+		bestDists [target] = int.MaxValue;
+		pq.Enqueue (0 + heuristicDist(source, target), source);
+		while (pq.Count > 0)
+		{
+			Point p = pq.DequeueValue();
+			int d = bestDists[p];
+			if (d-1 > bestDists[target]) // maybe -1 or something?
+			{
+				break;
+			}
+			int h = heuristicDist(p, target);
+			if (h == 1)
+			{
+				// Success, we can drive on target even if it's not a road
+				bestDists[target] = Math.Min(bestDists[target], d+1);
+				continue;
+			}
+			foreach (Point neighbour in getNeighboursOfType<Road>(p))
+			{
+				if (!bestDists.ContainsKey(neighbour))
+				{
+					bestDists[neighbour] = int.MaxValue;
+				}
+				if (d + 1 < bestDists[neighbour])
+				{
+					bestDists[neighbour] = d + 1;
+					pq.Enqueue(d + 1 + heuristicDist(neighbour, target), neighbour);
+				}
+			}
+		}
+		if (bestDists [target] == int.MaxValue)
+		{
+			return null;
+		}
+		Point current = target;
+		List<Point> path = new List<Point>();
+		List<Point> possibleNext = new List<Point>(4);
+		while (current.Equals(source))
+		{
+			path.Add(current);
+			possibleNext.Clear();
+			foreach (Point n in current.getNeighbours(grid))
+			{
+				if (bestDists.ContainsKey(n) && bestDists[n] == bestDists[current] - 1)
+				{
+					possibleNext.Add(n);
+				}
+			}
+			int randomIndex = UnityEngine.Random.Range(0, possibleNext.Count);
+			current = possibleNext[randomIndex];
+		}
+		path.Add (source);
+		path.Reverse ();
+		return path;
+	}
+
+	int heuristicDist(Point s, Point t)
+	{
+		return Math.Abs (s.x - t.x) + Math.Abs (s.y - t.y);
+	}
+
+
+	private List<Point> getNeighboursOfType<T>(Point p)
+	{
+		List<Point> neighboursOfType = new List<Point>();
+		foreach (Point n in p.getNeighbours(grid))
+		{
+			if (grid.getAt(p) is T)
+			{
+				neighboursOfType.Add(p);
+			}
+		}
+		return neighboursOfType;
 	}
 	
 }
