@@ -33,7 +33,10 @@ public class GameController : MonoBehaviour {
 				int xPos = Random.Range (0,10);
 				int yPos = Random.Range (0,10);
 				if (grid.getAt(new Point(xPos,yPos)) == null){
-					this.create(car, new Point(xPos,yPos));
+					var newCar = (Car)this.create(car, new Point(0,1));
+					newCar.home = new Point(0,1);
+					newCar.work = new Point(9,1);
+
 				}
 			}
 		}

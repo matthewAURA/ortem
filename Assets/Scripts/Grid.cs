@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class Grid : MonoBehaviour
 	public GridSquare gridSquare;
 
 	private Placeable[,] grid;
+
+	public List<Road> roads = new List<Road>();
+	public List<Home> homes = new List<Home>();
+	public List<Work> works = new List<Work>();
+	public List<Car> cars = new List<Car>();
 
 	void Awake ()
 	{
@@ -43,13 +49,18 @@ public class Grid : MonoBehaviour
 	}
 
 	public bool placePlaceable(Placeable placeable,Point p){
-		if (this.getAt(p) != null){
-			return false;
-		}else{
 			this.grid[p.x,p.y] = placeable;
+			if (placeable is Car) {
+				cars.Add((Car)placeable);
+			} else if (placeable is Home) {
+				homes.Add((Home)placeable);
+			} else if (placeable is Work) {
+				works.Add ((Work)placeable);
+			} else if (placeable is Road) {
+				roads.Add ((Road)placeable);
+			}
 			placeable.moveToPostion(new Vector3(p.x*gridSize,-p.y*gridSize,0));
 			return true;
-		}
 	}
 
 	public void renderCarOnGrid(Car car,Point p){
