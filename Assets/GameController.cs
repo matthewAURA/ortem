@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -7,16 +8,17 @@ public class GameController : MonoBehaviour {
 	public Road road;
 	public Home home;
 	public Work work;
+	public Car car;
 
 	// Use this for initialization
 	void Start () {
-		//StartCoroutine (Timing());
+		StartCoroutine (Timing());
 		for (int i = 1; i < 9; i++)
 		{
-			createRoad(new Point(i,1));
+			create(road, new Point(i,1));
 		}
-		createHouse (new Point (0, 1));
-		createWork (new Point (9, 1));
+		create(home, new Point (0, 1));
+		create(work, new Point (9, 1));
 	}
 	
 	// Update is called once per frame
@@ -31,28 +33,15 @@ public class GameController : MonoBehaviour {
 				int xPos = Random.Range (0,10);
 				int yPos = Random.Range (0,10);
 				if (grid.getAt(new Point(xPos,yPos)) == null){
-					this.createHouse(new Point(xPos,yPos));
+					this.create(car, new Point(xPos,yPos));
 				}
 			}
 		}
 	}
 
-
-	public Placeable createRoad(Point p){
-		var newRoad = (Road)Instantiate (road);
-		grid.placePlaceable(newRoad,p);
-		return newRoad;
+	public Placeable create(Placeable thing, Point p){
+		var newT = (Placeable)Instantiate (thing);
+		grid.placePlaceable(newT,p);
+		return newT;
 	}
-	
-	public Placeable createHouse(Point p){
-		var newHouse = (Home)Instantiate (home);
-		grid.placePlaceable (newHouse, p);
-		return newHouse;
-	}
-	public Placeable createWork(Point p){
-		var newWork = (Work)Instantiate (work);
-		grid.placePlaceable (newWork, p);
-		return newWork;
-	}
-
 }

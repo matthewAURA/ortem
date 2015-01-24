@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Car : MonoBehaviour
+public class Car : Placeable
 {
 
 	public Point home;
@@ -12,13 +12,13 @@ public class Car : MonoBehaviour
 	private IList<Direction> turns;
 
 	// Use this for initialization
-	void Start () {
-
+	public override void Start () {
+		base.Start ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	public override void Update () {
+		base.Update ();
 	}
 
 
