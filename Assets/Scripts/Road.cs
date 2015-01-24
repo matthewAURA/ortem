@@ -10,7 +10,6 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class Road : Placeable
 {
 	// Use this for initialization

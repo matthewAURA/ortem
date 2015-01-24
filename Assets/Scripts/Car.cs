@@ -20,12 +20,6 @@ public class Car : MonoBehaviour
 		
 	}
 
-	public IList<Direction> getPath(Point source, Point target)
-	{
-		// grid.
-		return null;
-		//source.
-		//for (int x = source.x
-	}
+
 
 }
