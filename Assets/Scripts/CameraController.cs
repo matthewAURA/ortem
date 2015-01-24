@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
 	public Transform cameraTrans;
 	public float scrollSpeed = 0.2f;
