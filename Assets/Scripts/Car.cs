@@ -7,13 +7,16 @@ public class Car : MonoBehaviour
 
 	public Point home;
 	public Point work;
-	public AStar navigator;
+	public AStar navigator = new AStar ();
 	public Direction direction { get; private set; }
 	public Point position;
 	private IList<Direction> turns;
+	private List<Point> path;
+	private int positionInPath = 0;
+	private int numChangesForValidPath = -1;
 
 	void Awake(){
-		navigator = new AStar ();
+
 	}
 
 	// Use this for initialization
@@ -34,16 +37,22 @@ public class Car : MonoBehaviour
 		if (position.Equals (work)) {
 			return DriveState.AT_DESTINATION;
 		}
-		var path = navigator.getPath (position, work);
+		if (numChangesForValidPath < Grid.getGrid().numChanges) {
+			// refresh path
+			path = navigator.getPath (position, work);
+			numChangesForValidPath = Grid.getGrid().numChanges;
+			positionInPath = 0;
+		}
 		if (path == null) {
 			return DriveState.CANNOT_REACH_DESTINATION;
 		}
-		if (path.Count > 1) {
-			this.position = path [1];
+		if (path.Count > positionInPath) {
+			positionInPath++;
+			this.position = path [positionInPath];
 			moveToPoint(this.position);
 			return DriveState.DRIVING;
 		}
-		Debug.Log ("weird case? path.count is " + path.Count);
+		Debug.Log ("should never happen!?! path.count is " + path.Count);
 		return DriveState.WHO_KNOWS;
 	}
 

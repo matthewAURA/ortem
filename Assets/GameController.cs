@@ -34,25 +34,32 @@ public class GameController : MonoBehaviour {
 	void Update () {
 	}
 
+	private Home getRandomHome() {
+		return grid.homes [Random.Range (0, grid.homes.Count)];
+	}
+
+	private Work getRandomWork() {
+		return grid.works [Random.Range (0, grid.works.Count)];
+	}
+
 	IEnumerator Timing() {
 		while (true) {
 			yield return new WaitForSeconds (0.1f);
 			if (Random.Range(0,1.0f) > 0.7){
-				var newCar = home.createCar(new Point(9,1)); 
+
+				Home h = getRandomHome();
+				Work w = getRandomWork();
+				var newCar = h.createCar(w.position); 
 				cars.Add (newCar);
 			}
-			List<Car> toRemove = new List<Car>();
-			foreach(Car carIter in cars){
-				Car.DriveState result = carIter.drive();
+
+			for (int i = cars.Count - 1; i >= 0; i--) { // reverse iteration so we can remove safely
+				Car.DriveState result = cars[i].drive();
 				if (result == Car.DriveState.AT_DESTINATION) {
-					toRemove.Add(carIter);
+					Destroy (cars[i].gameObject);
+					cars.RemoveAt(i);
 				}
 			}
-			foreach (Car carIter in toRemove) {
-				cars.Remove(carIter);
-				Destroy (carIter.gameObject);
-			}
-
 		}
 	}
 

@@ -20,11 +20,15 @@ public class Grid : MonoBehaviour
 	private Placeable[,] grid;
 
 	public Dictionary<Placeable,Point> placeables = new Dictionary<Placeable,Point>();
+	public List<Home> homes = new List<Home>();
+	public List<Work> works = new List<Work>();
+	public int numChanges  {get; private set;}
 
 	void Awake ()
 	{
 		staticGrid = this;
 		grid = new Placeable[width,height];
+		numChanges = 0;
 	}
 
 	// Use this for initialization
@@ -51,9 +55,15 @@ public class Grid : MonoBehaviour
 
 
 	public bool placePlaceable(Placeable placeable,Point p){
-		if (this.grid [p.x, p.y] == null) {
-			this.grid [p.x, p.y] = placeable;
+		numChanges++;
+		if (grid [p.x, p.y] == null) {
+			grid [p.x, p.y] = placeable;
 			placeables [placeable] = p;
+			if (placeable is Home) {
+				homes.Add((Home)placeable);
+			} else if (placeable is Work) {
+				works.Add((Work)placeable);
+			}
 			placeable.position = p;
 			placeable.moveToPostion (moveToWorldCoordinates (p));
 			return true;
@@ -63,9 +73,15 @@ public class Grid : MonoBehaviour
 	}
 
 	public bool removePlaceable(Point p){
+		numChanges++;
 		var oldPlaceable = this.grid [p.x, p.y];
 		this.grid [p.x, p.y] = null;
 		placeables.Remove (oldPlaceable);
+		if (oldPlaceable is Home) {
+			homes.Remove((Home)oldPlaceable);
+		} else if (oldPlaceable is Work) {
+			works.Remove((Work)oldPlaceable);
+		}
 		Destroy(oldPlaceable.gameObject);
 		return false;
 	}
