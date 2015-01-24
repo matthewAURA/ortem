@@ -7,39 +7,8 @@ using System;
 using System.Collections.Generic;
 
 
-public class GridGraph : MonoBehaviour
+public class AStar
 {
-	public Grid grid;
-	// private bool isGridDirty = true;
-
-//	public void gridUpdated()
-//	{
-//		isGridDirty = true;
-//	}
-
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	}
-
-//	private List<Edge> getEdges(Point p)
-//	{
-//		if (isGridDirty)
-//		{
-//			this.Update();
-//		}
-//		return graph [p];
-//	}
-//
-//	private struct Edge
-//	{
-//		Point p;
-//		int distance;
-//	}
 
 	public List<Point> getPath(Point source, Point target)
 	{
@@ -87,7 +56,7 @@ public class GridGraph : MonoBehaviour
 		{
 			path.Add(current);
 			possibleNext.Clear();
-			foreach (Point n in current.getNeighbours(grid))
+			foreach (Point n in current.getNeighbours())
 			{
 				if (bestDists.ContainsKey(n) && bestDists[n] == bestDists[current] - 1)
 				{
@@ -111,9 +80,9 @@ public class GridGraph : MonoBehaviour
 	private List<Point> getNeighboursOfType<T>(Point p)
 	{
 		List<Point> neighboursOfType = new List<Point>();
-		foreach (Point n in p.getNeighbours(grid))
+		foreach (Point n in p.getNeighbours())
 		{
-			if (grid.getAt(p) is T)
+			if (Grid.getGrid().getAt(p) is T)
 			{
 				neighboursOfType.Add(p);
 			}

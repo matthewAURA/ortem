@@ -7,7 +7,7 @@ public class Car : Placeable
 
 	public Point home;
 	public Point work;
-	public GridGraph graph;
+	public AStar graph;
 	public Direction direction { get; private set; }
 	private IList<Direction> turns;
 

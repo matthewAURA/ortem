@@ -36,7 +36,7 @@ public struct Point
 	/** 
 	 * Get neighbours (not diagonal) inside the grid
 	 */
-	public List<Point> getNeighbours(Grid grid)
+	public List<Point> getNeighbours()
 	{
 		List<Point> neighbours = new List<Point>();
 		
@@ -48,11 +48,11 @@ public struct Point
 		{
 			neighbours.Add(new Point(x, y - 1));
 		}
-		if (x < grid.width - 1)
+		if (x < Grid.getGrid().width - 1)
 		{
 			neighbours.Add(new Point(x + 1, y));
 		}
-		if (y < grid.height - 1)
+		if (y < Grid.getGrid().height - 1)
 		{
 			neighbours.Add(new Point(x, y + 1));
 		}
