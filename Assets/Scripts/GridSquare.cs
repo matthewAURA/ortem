@@ -16,7 +16,6 @@ public class GridSquare : MonoBehaviour {
 	}
 
 	void OnMouseOver(){
-		Debug.Log (UIController.CurrentBuildAction);
 		if (Input.GetMouseButton(0)){
 			gameController.updateGrid(UIController.CurrentBuildAction,this.gridIndex);
 		}else if (Input.GetMouseButton(1)){
