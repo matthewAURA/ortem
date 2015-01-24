@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
+	private static Grid staticGrid;
+
+	public static Grid getGrid()
+	{
+		return staticGrid;
+	}
 
 	public  int width;
 	public  int height;
@@ -20,6 +26,7 @@ public class Grid : MonoBehaviour
 
 	void Awake ()
 	{
+		staticGrid = this;
 		grid = new Placeable[width,height];
 	}
 
