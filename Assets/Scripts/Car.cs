@@ -32,9 +32,6 @@ public class Car : MonoBehaviour
 
 	public void drive(){
 		var path = navigator.getPath (position, work);
-		foreach (var p in path) {
-			Debug.Log (p);
-		}
 		if (path.Count > 1) {
 			this.position = path [1];
 			moveToPoint(this.position);
