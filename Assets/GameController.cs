@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (Timing());
-		for (int i = 1; i < 9; i++)
+		for (int i = 1; i < 8; i++)
 		{
 			createPlaceable(road, new Point(i,1));
 			createPlaceable(road, new Point(i,3));
@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour {
 		createPlaceable(road, new Point(0,3));
 		createPlaceable(road, new Point(9,2));
 		createPlaceable(road, new Point(9,3));
+		createPlaceable(road, new Point(8,3));
 		home = (Home)createPlaceable(homeTemplate, new Point (0, 1));
 		createPlaceable(work, new Point (9, 1));
 	}
