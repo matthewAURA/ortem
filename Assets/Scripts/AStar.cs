@@ -54,7 +54,7 @@ public class AStar
 		Point current = target;
 		List<Point> path = new List<Point>();
 		List<Point> possibleNext = new List<Point>(4);
-		while (current.Equals(source))
+		while (!current.Equals(source))
 		{
 			path.Add(current);
 			possibleNext.Clear();
