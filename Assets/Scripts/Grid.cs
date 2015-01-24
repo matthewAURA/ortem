@@ -9,7 +9,7 @@ public class Grid : MonoBehaviour
 	public  int gridSize;
 
 	public GridSquare gridSquare;
-
+	public Road road;
 	private Placeable[,] grid;
 
 
@@ -25,6 +25,9 @@ public class Grid : MonoBehaviour
 			}
 		}
 
+		for (int i=0; i<5; i++) {
+			createRoad (new Point(i,0));
+		}
 	}
 	
 	// Update is called once per frame
@@ -37,6 +40,22 @@ public class Grid : MonoBehaviour
 	}
 
 	public void updateGrid(Point p){
-
 	}
+
+	public bool placePlaceable(Placeable placeable,Point p){
+		if (this.getAt(p) != null){
+			return false;
+		}else{
+			this.grid[p.x,p.y] = placeable;
+			placeable.moveToPostion(new Vector3(p.x*gridSize,-p.y*gridSize,0));
+			return true;
+		}
+	}
+
+	public Placeable createRoad(Point p){
+		var newRoad = (Road)Instantiate (road);
+		this.placePlaceable(newRoad,p);
+		return null;
+	}
+
 }
