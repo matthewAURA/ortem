@@ -29,7 +29,7 @@ public class Road : Placeable
 		Point thisPosition;
 		try{
 			thisPosition = Grid.getGrid ().placeables [this];
-		}catch (Exception e){
+		}catch (Exception){
 			return;
 		}
 		int numRoads = 0;

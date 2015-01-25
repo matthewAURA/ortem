@@ -43,7 +43,6 @@ public class GameController : MonoBehaviour {
 		while (true) {
 			yield return new WaitForSeconds (0.1f);
 			foreach (Home h in grid.homes) {
-				Debug.Log("what");
 				if (Random.Range(0,1.0f) > 0.9){
 					Work w = getRandomWork();
 					if (h != null && w != null){
@@ -76,7 +75,7 @@ public class GameController : MonoBehaviour {
 			createPlaceable(work,p);
 			break;
 		case BuildAction.DELETE:
-			removePlaceable(p);
+			grid.removePlaceable(p);
 			break;
 		}
 
@@ -90,11 +89,6 @@ public class GameController : MonoBehaviour {
 			return newT;
 		}
 		return null;
-	}
-
-	public void removePlaceable(Point p){
-		Debug.Log ("remove");
-		grid.removePlaceable (p);
 	}
 
 }
