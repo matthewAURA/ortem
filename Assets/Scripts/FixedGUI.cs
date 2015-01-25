@@ -7,7 +7,6 @@ public class FixedGUI : MonoBehaviour {
 	public Texture houseTexture;
 	public Texture factoryTexture;
 	public Texture roadTexture;
-	public Transform guiElement;
 	public float scaleFactor = 0.1f;
 	// Use this for initialization
 	void Start () {

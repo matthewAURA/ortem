@@ -66,7 +66,6 @@ public class GameController : MonoBehaviour {
 
 	
 	public void updateGrid(BuildAction b,Point p){
-		Debug.Log ("update");
 		switch (b) {
 		case BuildAction.BUILD_ROAD:
 			createPlaceable (road, p);
@@ -85,9 +84,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public Placeable createPlaceable(Placeable thing, Point p){
-		var newT = (Placeable)Instantiate (thing);
-		grid.placePlaceable(newT,p);
-		return newT;
+		if (grid.getAt (p) == null) {
+
+			var newT = (Placeable)Instantiate (thing);
+			grid.placePlaceable (newT, p);
+			return newT;
+		}
+		return null;
 	}
 
 	public void removePlaceable(Point p){

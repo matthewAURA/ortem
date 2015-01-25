@@ -58,6 +58,44 @@ public struct Point
 		}
 		return neighbours;
 	}
+
+	public Point getDirection(Direction direction){
+		switch (direction) {
+		case Direction.WEST:
+			if (x > 0) {
+				return new Point (x - 1, y);
+			}
+			break;
+		case Direction.EAST:
+			if (x < Grid.getGrid().width - 1){
+				return new Point (x + 1, y);
+			}
+			break;
+		case Direction.SOUTH:
+			if (y < Grid.getGrid().height - 1){
+				return new Point (x, y + 1);
+			}
+			break;
+		case Direction.NORTH:
+			if (y > 0) {
+				return new Point (x, y - 1);
+			}
+			break;
+		}
+		throw new Exception("Point out of Range");
+	}
+
+	public Placeable getPlaceableNeighbour(Direction direction){
+		Point p;
+		try{
+			p = getDirection(direction);
+		}catch (Exception e){
+			return null;
+		}
+
+		return Grid.getGrid().getAt(p);
+	}
+
 }
 
 
