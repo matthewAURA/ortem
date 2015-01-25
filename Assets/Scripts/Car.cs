@@ -17,6 +17,11 @@ public class Car : MonoBehaviour
 	private int positionInPath = 0;
 	private int numChangesForValidPath = -1;
 
+	private Vector3 oldLocation;
+	private Vector3 newLocation;
+
+	private float startTime;
+
 	public struct CarPosOnRoad {
 		public Direction at;
 		public Direction headed;
@@ -39,7 +44,12 @@ public class Car : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-
+		float fracMoved = (Time.time-this.startTime)/GameController.GameTickLength;
+		if (fracMoved > 1) {
+			transform.position = this.newLocation;
+		} else {
+			transform.position = Vector3.Lerp (this.oldLocation, this.newLocation, fracMoved);
+		}
 	}
 	//	public struct CarPosOnRoad {
 	//		public Direction at;
@@ -51,9 +61,8 @@ public class Car : MonoBehaviour
 
 	public void moveToPoint(Point p, CarPosOnRoad por){
 		//TODO pos on road
-		this.transform.position = Grid.getGrid().moveToWorldCoordinates(p);
 		Vector3 d = new Vector3 (0, 0, -1);
-
+		d += Grid.getGrid().moveToWorldCoordinates(p);
 		if (por.at == Direction.NORTH) {
 			((Transform)this.GetComponent ("Transform")).rotation = Quaternion.AngleAxis (90, new Vector3 (0, 0, 1));
 			d += new Vector3(0,0.3f);
@@ -107,9 +116,11 @@ public class Car : MonoBehaviour
 			d += new Vector3(0,-0.1f);
 		}
 
+		this.oldLocation = this.newLocation;
+		this.newLocation = d;
+		this.startTime = Time.time;
 
-
-		this.transform.position += d;
+		//this.transform.position = d;
 
 
 

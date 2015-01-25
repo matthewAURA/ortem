@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 	public Work work;
 	public Car car;
 
+	public static float GameTickLength = 0.1f;
 
 	private List<Car> cars = new List<Car>();
 
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator Timing() {
 		while (true) {
-			yield return new WaitForSeconds (0.1f);
+			yield return new WaitForSeconds (GameTickLength);
 			if (Random.Range(0,1.0f) > 0.9){
 
 				Home h = getRandomHome();
