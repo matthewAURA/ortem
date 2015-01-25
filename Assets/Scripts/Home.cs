@@ -3,9 +3,7 @@ using System.Collections;
 
 public class Home : Placeable
 {
-
-
-	public Car car;
+	public Car carTemplate;
 
 	// Use this for initialization
 	public override void Start (){
@@ -19,7 +17,7 @@ public class Home : Placeable
 	}
 
 	public Car createCar(Point p){
-		var newCar = (Car)Instantiate (car);
+		var newCar = (Car)Instantiate (carTemplate);
 		newCar.position = this.position;
 		newCar.home = this.position;
 		newCar.work = p;

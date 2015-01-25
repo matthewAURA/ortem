@@ -102,11 +102,32 @@ public struct Point
 		Point p;
 		try{
 			p = getDirection(direction);
-		}catch (Exception e){
+		}catch (Exception){
 			return null;
 		}
 
 		return Grid.getGrid().getAt(p);
+	}
+
+	public Direction getDirectionOf(Point p) {
+		int diffX = this.x - p.x; // +ve means p is west
+		int diffY = this.y - p.y; // +ve means p is north
+		if (diffX == 0 && diffY == 0) {
+			throw new Exception("Points are the same");
+		}
+		if (Math.Abs (diffX) >= Math.Abs (diffY)) {
+			if (diffX > 0) {
+				return Direction.WEST;
+			} else {
+				return Direction.EAST;
+			}
+		} else {
+			if (diffY > 0) {
+				return Direction.NORTH;
+			} else {
+				return Direction.SOUTH;
+			}
+		}
 	}
 
 }

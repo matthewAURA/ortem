@@ -17,7 +17,8 @@ public class Grid : MonoBehaviour
 
 	public GridSquare gridSquare;
 
-	private Placeable[,] grid;
+	private Placeable[,] placeableGrid;
+	private RoadLogic[,] roadGrid;
 
 	public Dictionary<Placeable,Point> placeables = new Dictionary<Placeable,Point>();
 	public List<Home> homes = new List<Home>();
@@ -27,15 +28,21 @@ public class Grid : MonoBehaviour
 	void Awake ()
 	{
 		staticGrid = this;
-		grid = new Placeable[width,height];
+		placeableGrid = new Placeable[width,height];
+		roadGrid = new RoadLogic[width, height];
+		for (int i=0; i<width; i++) {
+			for (int j=0; j<height; j++){
+				roadGrid[i,j] = new RoadLogic();
+			}
+		}
 		numChanges = 0;
 	}
 
 	// Use this for initialization
 	void Start () {
 		//Render all the grid Square
-		for (int i=0; i<grid.GetLength(0); i++) {
-			for (int j=0;j<grid.GetLength(1);j++){
+		for (int i=0; i<placeableGrid.GetLength(0); i++) {
+			for (int j=0;j<placeableGrid.GetLength(1);j++){
 				GridSquare square = (GridSquare)Instantiate(gridSquare);
 				((Transform)square.GetComponent("Transform")).position = new Vector3(i*gridSize,-j*gridSize,0);
 				square.gridIndex = new Point(i,j);
@@ -50,14 +57,14 @@ public class Grid : MonoBehaviour
 	}
 
 	public Placeable getAt(Point p){
-		return this.grid[p.x,p.y];
+		return placeableGrid[p.x,p.y];
 	}
 
 
 	public bool placePlaceable(Placeable placeable,Point p){
 		numChanges++;
-		if (grid [p.x, p.y] == null) {
-			grid [p.x, p.y] = placeable;
+		if (placeableGrid [p.x, p.y] == null) {
+			placeableGrid [p.x, p.y] = placeable;
 			placeables [placeable] = p;
 			if (placeable is Home) {
 				homes.Add((Home)placeable);
@@ -74,9 +81,9 @@ public class Grid : MonoBehaviour
 
 	public bool removePlaceable(Point p){
 		numChanges++;
-		var oldPlaceable = this.grid [p.x, p.y];
+		var oldPlaceable = placeableGrid [p.x, p.y];
 		if (oldPlaceable != null) {
-			this.grid [p.x, p.y] = null;
+			placeableGrid [p.x, p.y] = null;
 			placeables.Remove (oldPlaceable);
 			if (oldPlaceable is Home) {
 				homes.Remove((Home)oldPlaceable);
@@ -92,6 +99,8 @@ public class Grid : MonoBehaviour
 		return new Vector3 (p.x * gridSize, -p.y * gridSize, 0);
 	}
 
-
+	public RoadLogic getRoadAt(Point p) {
+		return roadGrid [p.x, p.y];
+	}
 
 }
