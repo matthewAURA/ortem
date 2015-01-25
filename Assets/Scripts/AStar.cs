@@ -32,7 +32,7 @@ public class AStar
 				bestDists[target] = Math.Min(bestDists[target], d+1);
 				continue;
 			}
-			foreach (Point neighbour in getNeighboursOfType<Road>(p))
+			foreach (Point neighbour in p.getNeighboursOfType<Road>())
 			{
 				if (!bestDists.ContainsKey(neighbour))
 				{
@@ -77,18 +77,7 @@ public class AStar
 	}
 
 
-	private List<Point> getNeighboursOfType<T>(Point p)
-	{
-		List<Point> neighboursOfType = new List<Point>();
-		foreach (Point n in p.getNeighbours())
-		{
-			if (Grid.getGrid().getAt(n) is T)
-			{
-				neighboursOfType.Add(n);
-			}
-		}
-		return neighboursOfType;
-	}
+
 	
 }
 

@@ -59,6 +59,19 @@ public struct Point
 		return neighbours;
 	}
 
+	public List<Point> getNeighboursOfType<T>()
+	{
+		List<Point> neighboursOfType = new List<Point>();
+		foreach (Point n in this.getNeighbours())
+		{
+			if (Grid.getGrid().getAt(n) is T)
+			{
+				neighboursOfType.Add(n);
+			}
+		}
+		return neighboursOfType;
+	}
+
 	public Point getDirection(Direction direction){
 		switch (direction) {
 		case Direction.WEST:
