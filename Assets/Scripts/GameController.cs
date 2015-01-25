@@ -7,7 +7,6 @@ public class GameController : MonoBehaviour {
 	public Grid grid;
 	public Road road;
 	public Home homeTemplate;
-	public Home home;
 	public Work work;
 	public Car car;
 
@@ -17,18 +16,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (Timing());
-		for (int i = 1; i < 8; i++)
-		{
-			createPlaceable(road, new Point(i,1));
-			createPlaceable(road, new Point(i,3));
-		}
-		createPlaceable(road, new Point(0,2));
-		createPlaceable(road, new Point(0,3));
-		createPlaceable(road, new Point(9,2));
-		createPlaceable(road, new Point(9,3));
-		createPlaceable(road, new Point(8,3));
-		home = (Home)createPlaceable(homeTemplate, new Point (0, 1));
-		createPlaceable(work, new Point (9, 1));
+
 	}
 	
 	// Update is called once per frame
@@ -36,11 +24,19 @@ public class GameController : MonoBehaviour {
 	}
 
 	private Home getRandomHome() {
-		return grid.homes [Random.Range (0, grid.homes.Count)];
+		if (grid.homes.Count > 0) {
+			return grid.homes [Random.Range (0, grid.homes.Count)];
+		} else {
+			return null;
+		}
 	}
 
 	private Work getRandomWork() {
-		return grid.works [Random.Range (0, grid.works.Count)];
+		if (grid.works.Count > 0) {
+			return grid.works [Random.Range (0, grid.works.Count)];
+		}else{
+			return null;
+		}
 	}
 
 	IEnumerator Timing() {
@@ -50,8 +46,10 @@ public class GameController : MonoBehaviour {
 
 				Home h = getRandomHome();
 				Work w = getRandomWork();
-				var newCar = h.createCar(w.position); 
-				cars.Add (newCar);
+				if (h != null && w != null){
+					var newCar = h.createCar(w.position); 
+					cars.Add (newCar);
+				}
 			}
 
 			for (int i = cars.Count - 1; i >= 0; i--) { // reverse iteration so we can remove safely
@@ -71,7 +69,7 @@ public class GameController : MonoBehaviour {
 			createPlaceable (road, p);
 			break;
 		case BuildAction.BUILD_HOME:
-			createPlaceable(home,p);
+			createPlaceable(homeTemplate,p);
 			break;
 		case BuildAction.BUILD_WORK:
 			createPlaceable(work,p);

@@ -31,6 +31,15 @@ public class CameraController : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+		{
+			Camera.main.orthographicSize--;
+		}
+		if (Input.GetAxis("Mouse ScrollWheel") < 0) // back
+		{
+			Camera.main.orthographicSize++;
+		}
+
 
 		if (Input.GetKey ("w")) {
 			cameraTrans.Translate(new Vector3(0,scrollSpeed));

@@ -28,19 +28,20 @@ public class Road : Placeable
 		//Work out how many roads are around us
 		Point thisPosition = Grid.getGrid ().placeables [this];
 		int numRoads = 0;
-		foreach (var p in thisPosition.getNeighbours()){
+		foreach (var p in thisPosition.getNeighboursOfType<Road>()){
 			if (Grid.getGrid().getAt(p) is Road){
 				numRoads++;
 			}
 		}
 		int facingDirection = 0;
+		//Possibly the worst code I have ever written
 		switch (numRoads) {
 		case 0: case 4:
 			activeSprite = roadCross;
 			break;
 		case 3:
 			foreach (Direction n in Enum.GetValues(typeof(Direction))){
-				if (thisPosition.getPlaceableNeighbour(n) == null){
+				if (thisPosition.getPlaceableNeighbour(n) == null || !(thisPosition.getPlaceableNeighbour(n) is Road)){
 					facingDirection = (int)n;
 				}
 			}
@@ -49,7 +50,7 @@ public class Road : Placeable
 		case 1 : 
 			activeSprite = roadStraight;
 			foreach (Direction n in Enum.GetValues(typeof(Direction))){
-				if (thisPosition.getPlaceableNeighbour(n) != null){
+				if (thisPosition.getPlaceableNeighbour(n) != null && thisPosition.getPlaceableNeighbour(n) is Road){
 					facingDirection = ((int)n) + 1;
 					break;
 				}
@@ -58,22 +59,25 @@ public class Road : Placeable
 		case 2:
 			activeSprite = roadStraight;
 			if (thisPosition.getPlaceableNeighbour(Direction.NORTH) != null &&
-			    thisPosition.getPlaceableNeighbour(Direction.SOUTH) != null){
+			    thisPosition.getPlaceableNeighbour(Direction.SOUTH) != null &&
+			    (thisPosition.getPlaceableNeighbour(Direction.NORTH) is Road && thisPosition.getPlaceableNeighbour(Direction.SOUTH) is Road)){
 				facingDirection = (int)Direction.EAST;
 			}else if (thisPosition.getPlaceableNeighbour(Direction.EAST) != null &&
-			          thisPosition.getPlaceableNeighbour(Direction.WEST) != null){
+			          thisPosition.getPlaceableNeighbour(Direction.WEST) != null && 
+			          (thisPosition.getPlaceableNeighbour(Direction.EAST) is Road &&
+			 thisPosition.getPlaceableNeighbour(Direction.WEST) is Road)){
 				facingDirection = (int)Direction.NORTH;	
 			}else{
 				//Corner Case
 				activeSprite = roadCorner;
-				if (thisPosition.getPlaceableNeighbour(Direction.NORTH) != null){
-					if (thisPosition.getPlaceableNeighbour(Direction.EAST) != null){
+				if (thisPosition.getPlaceableNeighbour(Direction.NORTH) != null && thisPosition.getPlaceableNeighbour(Direction.NORTH) is Road){
+					if (thisPosition.getPlaceableNeighbour(Direction.EAST) != null && thisPosition.getPlaceableNeighbour(Direction.EAST) is Road){
 						facingDirection = 3;
 					}else{
 						facingDirection = 2;
 					}
 				}else{
-					if (thisPosition.getPlaceableNeighbour(Direction.EAST) != null){
+					if (thisPosition.getPlaceableNeighbour(Direction.EAST) != null && thisPosition.getPlaceableNeighbour(Direction.EAST) is Road){
 						facingDirection = 0;
 					}else{
 						facingDirection = 1;
