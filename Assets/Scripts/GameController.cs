@@ -55,6 +55,11 @@ public class GameController : MonoBehaviour {
 
 			for (int i = cars.Count - 1; i >= 0; i--) { // reverse iteration so we can remove safely
 				Car.DriveState result = cars[i].drive();
+				if (result == Car.DriveState.CANNOT_REACH_DESTINATION || result == Car.DriveState.STOPPED) {
+					Car.waitingCars.Add(car); // DOESNT WORK
+				} else {
+					Car.waitingCars.Remove(car);
+				}
 				if (result == Car.DriveState.AT_DESTINATION) {
 					Destroy (cars[i].gameObject);
 					cars.RemoveAt(i);

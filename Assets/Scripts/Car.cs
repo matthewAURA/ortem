@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Car : MonoBehaviour
 {
+	public static HashSet<Car> waitingCars = new HashSet<Car> (); // Doesn't work!
 
 	public Point home;
 	public Point work;
@@ -54,13 +55,6 @@ public class Car : MonoBehaviour
 			transform.position = Vector3.Lerp (this.oldLocation, this.newLocation, fracMoved);
 		}
 	}
-	//	public struct CarPosOnRoad {
-	//		public Direction at;
-	//		public Direction headed;
-	//		public bool front;
-	//		public bool initial; // initial pos can overlap other cars, so don't remove whatever else might be there
-	//	}
-
 
 	public void moveToPoint(Point p, CarPosOnRoad por){
 		//TODO pos on road
@@ -148,30 +142,23 @@ public class Car : MonoBehaviour
 			return DriveState.CANNOT_REACH_DESTINATION;
 		}
 		// Actually DRIVE
-		SubDriveState subState = subDrive ();
-		if (subState == SubDriveState.MOVED_TILE ) {
+		DriveState subState = subDrive ();
+		if (subState == DriveState.MOVED_TILE ) {
 			positionInPath++;
 			position = path [positionInPath];
 		}
-		if (subState == SubDriveState.MOVED_TILE || subState == SubDriveState.MOVED) {
+		if (subState == DriveState.MOVED_TILE || subState == DriveState.MOVED) {
 			posOnRoad.initial = false;
 			moveToPoint(position, posOnRoad);
 		}
-		return DriveState.DRIVING;
-		
+		return subState;
 	}
 
 	public enum DriveState {
-		DRIVING, AT_DESTINATION, CANNOT_REACH_DESTINATION
+		MOVED, MOVED_TILE, STOPPED, AT_DESTINATION, CANNOT_REACH_DESTINATION
 	}
 
-	private enum SubDriveState {
-		MOVED, STOPPED, MOVED_TILE
-	}
-
-
-
-	private SubDriveState subDrive() {
+	private DriveState subDrive() {
 
 		Point nextPosition = path [positionInPath + 1];
 		Direction at = posOnRoad.at;
@@ -183,9 +170,9 @@ public class Car : MonoBehaviour
 				rl.setCar (posOnRoad, null);
 				posOnRoad.front = true;
 				rl.setCar (posOnRoad, this);
-				return SubDriveState.MOVED;
+				return DriveState.MOVED;
 			} else {
-				return SubDriveState.STOPPED;
+				return DriveState.STOPPED;
 			}
 		} else if (at == headed) { // at outer edge. try to move to next tile
 			RoadLogic rlNext = Grid.getGrid ().getRoadAt (nextPosition);
@@ -195,9 +182,9 @@ public class Car : MonoBehaviour
 				posOnRoad.at = atNext;
 				posOnRoad.front = false;
 				rlNext.setCar (posOnRoad, this);
-				return SubDriveState.MOVED_TILE;
+				return DriveState.MOVED_TILE;
 			} else {
-				return SubDriveState.STOPPED;
+				return DriveState.STOPPED;
 			}
 		} else { // needs to cross the intersection
 			Direction dir = position.getDirectionOf(nextPosition);
@@ -207,9 +194,9 @@ public class Car : MonoBehaviour
 				posOnRoad.headed = dir;
 				posOnRoad.front = false;
 				rl.setCar(posOnRoad, this);
-				return SubDriveState.MOVED;
+				return DriveState.MOVED;
 			} else {
-				return SubDriveState.STOPPED;
+				return DriveState.STOPPED;
 			}
 		}
 	}
