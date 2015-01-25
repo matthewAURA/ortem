@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator Timing() {
 		while (true) {
 			yield return new WaitForSeconds (0.1f);
-			if (Random.Range(0,1.0f) > 0.7){
+			if (Random.Range(0,1.0f) > 0.9){
 
 				Home h = getRandomHome();
 				Work w = getRandomWork();

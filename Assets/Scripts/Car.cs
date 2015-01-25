@@ -41,14 +41,74 @@ public class Car : MonoBehaviour
 	void Update () {
 
 	}
+	//	public struct CarPosOnRoad {
+	//		public Direction at;
+	//		public Direction headed;
+	//		public bool front;
+	//		public bool initial; // initial pos can overlap other cars, so don't remove whatever else might be there
+	//	}
+
 
 	public void moveToPoint(Point p, CarPosOnRoad por){
 		//TODO pos on road
 		this.transform.position = Grid.getGrid().moveToWorldCoordinates(p);
+		Vector3 d = new Vector3 (0, 0, -1);
+
+		if (por.at == Direction.NORTH) {
+			((Transform)this.GetComponent ("Transform")).rotation = Quaternion.AngleAxis (90, new Vector3 (0, 0, 1));
+			d += new Vector3(0,0.3f);
+		}
+		if (por.at == Direction.SOUTH) {
+			d += new Vector3(0,-0.3f);
+			((Transform)this.GetComponent ("Transform")).rotation = Quaternion.AngleAxis (90, new Vector3 (0, 0, 1));
+		}
+		if (por.at == Direction.EAST) {
+			d += new Vector3(0.3f,0);
+			((Transform)this.GetComponent ("Transform")).rotation = Quaternion.AngleAxis (0, new Vector3 (0, 0, 1));
+		}
+		
+		if (por.at == Direction.WEST) {
+			d += new Vector3(-0.3f,0);
+			((Transform)this.GetComponent ("Transform")).rotation = Quaternion.AngleAxis (0, new Vector3 (0, 0, 1));
+
+		}
+
+		if (por.headed == Direction.NORTH) {
+			if(por.front){
+				d+= new Vector3(0,0.1f);
+			}
+			d += new Vector3(-0.1f,0f);
+		}
+		if (por.headed == Direction.SOUTH) {
+			if(por.front){
+				d+= new Vector3(0,-0.1f);
+			}
+			d += new Vector3(0.1f,0f);
+		}
+		if (por.headed == Direction.EAST) {
+			if(por.front){
+				d+= new Vector3(0.1f,0);
+			}
+			d += new Vector3(0,0.1f);
+		}
+		
+		if (por.headed == Direction.WEST) {
+			if(por.front){
+				d+= new Vector3(-0.1f,0);
+			}
+			d += new Vector3(0,-0.1f);
+		}
+
+
+
+		this.transform.position += d;
+
+
+
 	}
 
-	public void moveToPoint(Point p) { // for initial position (place somewhere randomly on the tile?)
 
+	public void moveToPoint(Point p) { // for initial position (place somewhere randomly on the tile?)
 		this.transform.position = Grid.getGrid().moveToWorldCoordinates(p);
 	}
 
