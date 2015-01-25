@@ -32,8 +32,8 @@ public class Car : MonoBehaviour
 	void Awake(){
 		posOnRoad = new CarPosOnRoad();
 		posOnRoad.at = (Direction)Random.Range(0, 4);
-		posOnRoad.headed = (Random.Range(0, 2) == 1) ? posOnRoad.at.opposite() : posOnRoad.at;
-		posOnRoad.front = Random.Range(0,2) == 1;
+		posOnRoad.headed = posOnRoad.at.opposite();
+		posOnRoad.front = true;
 		posOnRoad.initial = true;
 	}
 	

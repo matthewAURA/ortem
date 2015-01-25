@@ -43,13 +43,13 @@ public class GameController : MonoBehaviour {
 	IEnumerator Timing() {
 		while (true) {
 			yield return new WaitForSeconds (GameTickLength);
-			if (Random.Range(0,1.0f) > 0.9){
-
-				Home h = getRandomHome();
-				Work w = getRandomWork();
-				if (h != null && w != null){
-					var newCar = h.createCar(w.position); 
-					cars.Add (newCar);
+			foreach (Home h in grid.homes) {
+				if (Random.Range(0,1.0f) > 0.9){
+					Work w = getRandomWork();
+					if (h != null && w != null){
+						var newCar = h.createCar(w.position); 
+						cars.Add (newCar);
+					}
 				}
 			}
 
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour {
 			createPlaceable(work,p);
 			break;
 		case BuildAction.DELETE:
-			removePlaceable(p);
+			grid.removePlaceable(p);
 			break;
 		}
 
@@ -90,11 +90,6 @@ public class GameController : MonoBehaviour {
 			return newT;
 		}
 		return null;
-	}
-
-	public void removePlaceable(Point p){
-		Debug.Log ("remove");
-		grid.removePlaceable (p);
 	}
 
 }
