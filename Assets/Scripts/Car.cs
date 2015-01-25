@@ -20,7 +20,9 @@ public class Car : MonoBehaviour
 	private Vector3 oldLocation;
 	private Vector3 newLocation;
 
-	private float startTime;
+	private int numTicks = 100;
+	private int tickRate = 10;
+	private int tickPos = 0;
 
 	public struct CarPosOnRoad {
 		public Direction at;
@@ -44,7 +46,8 @@ public class Car : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		float fracMoved = (Time.time-this.startTime)/GameController.GameTickLength;
+		float fracMoved = (float)tickPos / (float)numTicks;
+		tickPos += tickRate;
 		if (fracMoved > 1) {
 			transform.position = this.newLocation;
 		} else {
@@ -116,9 +119,9 @@ public class Car : MonoBehaviour
 			d += new Vector3(0,-0.1f);
 		}
 
-		this.oldLocation = this.newLocation;
+		this.oldLocation = transform.position;
 		this.newLocation = d;
-		this.startTime = Time.time;
+		this.tickPos = 0;
 
 		//this.transform.position = d;
 
