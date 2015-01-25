@@ -42,13 +42,14 @@ public class GameController : MonoBehaviour {
 	IEnumerator Timing() {
 		while (true) {
 			yield return new WaitForSeconds (0.1f);
-			if (Random.Range(0,1.0f) > 0.9){
-
-				Home h = getRandomHome();
-				Work w = getRandomWork();
-				if (h != null && w != null){
-					var newCar = h.createCar(w.position); 
-					cars.Add (newCar);
+			foreach (Home h in grid.homes) {
+				Debug.Log("what");
+				if (Random.Range(0,1.0f) > 0.9){
+					Work w = getRandomWork();
+					if (h != null && w != null){
+						var newCar = h.createCar(w.position); 
+						cars.Add (newCar);
+					}
 				}
 			}
 
