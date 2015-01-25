@@ -76,18 +76,24 @@ public class Car : MonoBehaviour
 		if (por.headed == Direction.NORTH) {
 			if(por.front){
 				d+= new Vector3(0,0.1f);
+			}else{
+				d+= new Vector3(0,-0.1f);
 			}
 			d += new Vector3(-0.1f,0f);
 		}
 		if (por.headed == Direction.SOUTH) {
 			if(por.front){
 				d+= new Vector3(0,-0.1f);
+			}else{
+				d+= new Vector3(0,0.1f);
 			}
 			d += new Vector3(0.1f,0f);
 		}
 		if (por.headed == Direction.EAST) {
 			if(por.front){
 				d+= new Vector3(0.1f,0);
+			}else{
+				d+= new Vector3(-0.1f,0);
 			}
 			d += new Vector3(0,0.1f);
 		}
@@ -95,6 +101,8 @@ public class Car : MonoBehaviour
 		if (por.headed == Direction.WEST) {
 			if(por.front){
 				d+= new Vector3(-0.1f,0);
+			}else{
+				d+= new Vector3(0.1f,0);
 			}
 			d += new Vector3(0,-0.1f);
 		}

@@ -25,8 +25,13 @@ public class Road : Placeable
 	}
 
 	public void updateSprite(){
-		//Work out how many roads are around us
-		Point thisPosition = Grid.getGrid ().placeables [this];
+		//Work out how many roads are around us.
+		Point thisPosition;
+		try{
+			thisPosition = Grid.getGrid ().placeables [this];
+		}catch (Exception e){
+			return;
+		}
 		int numRoads = 0;
 		foreach (var p in thisPosition.getNeighboursOfType<Road>()){
 			if (Grid.getGrid().getAt(p) is Road){
